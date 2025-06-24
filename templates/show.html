@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}AllTask{% endblock %}
+
+{% block body %} 
+    
+    
+    <div class="container my-5">
+        <h2 class="fw-bold text-dark">To do lists:-</h2>
+        <table class="table">
+            {% if allTodo|length==0 %}
+                <div class="alert alert-dark" role="alert">
+                    There is no any ToDo, Please add first ToDo now!
+                </div>
+
+            {% else %} 
+                <thead>
+                    <tr>
+                    <th scope="col">Sno</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Created Time</th>
+                    <th scope="col">Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in allTodo %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ todo.title }}</td>
+                        <td>{{ todo.desc }}</td>
+                        <td>{{ todo.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>
+                            <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1">Update</a>
+                            <a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-danger btn-sm mx-1">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            {% endif %}
+        </table>
+    </div>
+{% endblock body %}
